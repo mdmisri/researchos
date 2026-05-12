@@ -1,0 +1,43 @@
+{
+  "name": "researchos",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "15.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+
+    "openai": "^4.67.0",
+    "@langchain/langgraph": "^0.2.0",
+    "@langchain/core": "^0.3.0",
+    "@langchain/openai": "^0.3.0",
+    "@tavily/core": "^0.5.0",
+
+    "@supabase/supabase-js": "^2.45.0",
+
+    "zod": "^3.23.8",
+
+    "tailwindcss": "^3.4.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.0",
+    "lucide-react": "^0.462.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.0",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8"
+  }
+}
