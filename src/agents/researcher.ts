@@ -60,7 +60,14 @@ export async function researcherNode(
       if (toolCall.name === "web_search") {
         // Execute the tool call manually — we're not using an agent executor
         // because we want fine-grained control over what happens with results
-        const result = await tavilySearchTool.invoke(toolCall.args);
+        // Cast args to the tool's expected input shape.
+        // Why cast instead of validate? toolCall.args was already produced by
+        // the LLM in response to TavilyInputSchema — it matched the schema to
+        // generate the call. A second Zod parse would be redundant here.
+        // The tool itself will validate and throw if anything is malformed.
+        const result = await tavilySearchTool.invoke(
+          toolCall.args as { query: string; maxResults?: number }
+        );
         const parsed = JSON.parse(result);
         searchResults.push(parsed);
 
