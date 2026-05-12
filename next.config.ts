@@ -1,18 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // We use Server-Sent Events (SSE) for streaming agent output to the browser.
-  // Long-running SSE connections require we disable response buffering —
-  // without this, Next.js would wait for the full response before sending anything.
-  experimental: {
-    serverComponentsExternalPackages: [
-      // LangGraph runs in Node.js, not the Edge runtime.
-      // Marking it external prevents Next.js from bundling it for the browser.
-      "@langchain/langgraph",
-      "@langchain/core",
-      "openai",
-    ],
-  },
+  // `serverComponentsExternalPackages` was moved out of `experimental` in Next.js 15.1.
+  // These packages run in Node.js only — marking them external prevents Next.js
+  // from attempting to bundle them for the browser (they use Node APIs like `net`, `fs`).
+  serverExternalPackages: [
+    "@langchain/langgraph",
+    "@langchain/core",
+    "openai",
+  ],
 };
 
 export default nextConfig;

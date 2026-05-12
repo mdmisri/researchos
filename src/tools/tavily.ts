@@ -27,8 +27,10 @@ const TavilyInputSchema = z.object({
     .number()
     .min(1)
     .max(10)
-    .default(5)
     .describe("Number of search results to return. Use 3-5 for speed, 10 for deep research."),
+    // No .default() here — OpenAI structured outputs requires all fields to be
+    // explicitly required. .default() makes the field optional in JSON schema,
+    // which the API rejects. We handle the default inside the tool function instead.
 });
 
 // Output schema — shapes what we give back to the agent.
@@ -64,7 +66,8 @@ function getTavilyClient() {
 // The tool itself — `tool()` from LangChain wires together the schema,
 // description, and implementation into one object the agent can call.
 export const tavilySearchTool = tool(
-  async ({ query, maxResults }): Promise<string> => {
+  async ({ query, maxResults = 5 }): Promise<string> => {
+    // maxResults defaults to 5 here (not in the schema) — see comment above
     const client = getTavilyClient();
 
     const response = await client.search(query, {

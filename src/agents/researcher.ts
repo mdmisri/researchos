@@ -66,7 +66,7 @@ export async function researcherNode(
         // generate the call. A second Zod parse would be redundant here.
         // The tool itself will validate and throw if anything is malformed.
         const result = await tavilySearchTool.invoke(
-          toolCall.args as { query: string; maxResults?: number }
+          toolCall.args as { query: string; maxResults: number }
         );
         const parsed = JSON.parse(result);
         searchResults.push(parsed);
